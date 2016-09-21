@@ -67,7 +67,25 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 1) and 
 	    // EfficientDocument (module 2).
-	    return 0;
+		int count = 0;
+		int n = 0;
+		for (int i = 0; i < word.length(); i++) {
+			char c =Character.toLowerCase(word.charAt(i));
+			if (c == 'a' || c == 'e' || c == 'o' || c == 'i' || c == 'u'
+					|| c == 'y') {
+				n++;
+				if (i == word.length() - 1 && c == 'e' && n == 1 && count > 0)
+					n = 0;
+			} else {
+				if (n != 0)
+					count++;
+				n = 0;
+
+			}
+		}
+		if (n != 0)
+			count++;
+		return count;
 	}
 	
 	/** A method for testing
@@ -131,7 +149,7 @@ public abstract class Document {
 	public double getFleschScore()
 	{
 	    // TODO: Implement this method in week 1
-	    return 0.0;
+	    return 206.835 - 1.015 *((double)getNumWords()/getNumSentences()) - 84.6 *((double)getNumSyllables()/getNumWords());
 	}
 	
 	
