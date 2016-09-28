@@ -10,6 +10,8 @@ import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 
+
+
 /**
  * @author UC San Diego MOOC team
  *
@@ -22,6 +24,7 @@ public class MyLinkedListTester {
 	MyLinkedList<Integer> emptyList;
 	MyLinkedList<Integer> longerList;
 	MyLinkedList<Integer> list1;
+	MyLinkedList<String> liste;
 	
 	/**
 	 * @throws java.lang.Exception
@@ -42,6 +45,10 @@ public class MyLinkedListTester {
 		list1.add(65);
 		list1.add(21);
 		list1.add(42);
+		
+		liste = new MyLinkedList<String>();
+		liste.add("Maelya");
+		liste.add("Tergah");
 		
 	}
 
@@ -114,6 +121,18 @@ public class MyLinkedListTester {
 		assertEquals("Remove: check element 0 is correct ", (Integer)21, list1.get(0));
 		assertEquals("Remove: check size is correct ", 2, list1.size());
 		
+		String name = liste.remove(0);
+		assertEquals("Maelya",name);
+		liste.add("Johanna");
+		name = liste.remove(1);
+		assertEquals("Johanna",name);
+		try{
+			liste.get(1);
+			fail("the index is out of bounds");
+		}catch(IndexOutOfBoundsException e){
+			
+		}
+		
 		// TODO: Add more tests here
 	}
 	
@@ -123,7 +142,10 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
-        // TODO: implement this test
+		liste.add("Johanna");
+		assertEquals(3, liste.size());
+		liste.add("Keilo");
+		assertEquals(4, liste.size());
 		
 	}
 
@@ -132,7 +154,11 @@ public class MyLinkedListTester {
 	@Test
 	public void testSize()
 	{
-		// TODO: implement this test
+		assertEquals(2, liste.size());//
+		assertEquals(0, emptyList.size());
+		liste.add("ibo");
+		assertEquals(3, liste.size());//
+		
 	}
 
 	
@@ -144,7 +170,10 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddAtIndex()
 	{
-        // TODO: implement this test
+		liste.add(1, "Johanna");
+		assertEquals("Tergah", liste.get(2));
+		liste.add(1, "Gabriel");
+		assertEquals("Johanna", liste.get(2));
 		
 	}
 	
@@ -152,7 +181,28 @@ public class MyLinkedListTester {
 	@Test
 	public void testSet()
 	{
-	    // TODO: implement this test
+		liste.add("Johanna");
+		String name = liste.set(1, "Gabriel");
+		assertEquals("Tergah",name);
+		assertEquals("Gabriel",liste.get(1));
+		
+		name = liste.set(2, "Keilo");
+		assertEquals("Johanna",name);
+		
+		try{
+			liste.get(3);
+			fail("the index is out of bounds");
+		}catch(IndexOutOfBoundsException e){
+			
+		}
+		
+		try{
+			emptyList.get(0);
+			fail("the index is out of bounds");
+		}catch(IndexOutOfBoundsException e){
+			
+		}
+		
 	    
 	}
 	
