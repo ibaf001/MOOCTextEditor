@@ -53,7 +53,7 @@ public class AutoCompleteDictionaryTrieTester {
 	public void testSize()
 	{
 		assertEquals("Testing size for empty dict", 0, emptyDict.size());
-		assertEquals("Testing size for small dict", 8, smallDict.size());
+	    assertEquals("Testing size for small dict", 8, smallDict.size());
 		assertEquals("Testing size for large dict", 4438, largeDict.size());
 	}
 	
@@ -101,7 +101,7 @@ public class AutoCompleteDictionaryTrieTester {
 		assertEquals("Asserting hellow is in empty dict", true, emptyDict.isWord("hellow"));
 		assertEquals("Asserting hellow is in small dict", true, smallDict.isWord("hellow"));
 		assertEquals("Asserting hellow is in large dict", true, largeDict.isWord("hellow"));
-
+		
 		assertEquals("Asserting xyzabc is not in empty dict", false, emptyDict.isWord("xyzabc"));
 		assertEquals("Asserting xyzabc is not in small dict", false, smallDict.isWord("xyzabc"));
 		assertEquals("Asserting xyzabc is in large dict", false, largeDict.isWord("xyzabc"));
@@ -124,7 +124,7 @@ public class AutoCompleteDictionaryTrieTester {
 		assertEquals("Testing isWord on large: no", true, largeDict.isWord("no"));
 		
 		assertEquals("Testing isWord on small: subsequent", true, smallDict.isWord("subsequent"));
-		assertEquals("Testing isWord on large: subsequent", true, largeDict.isWord("subsequent"));
+		assertEquals("Testing isWord on large: subsequent", true, largeDict.isWord("subsequent"));  
 		
 		
 	}
@@ -136,10 +136,12 @@ public class AutoCompleteDictionaryTrieTester {
 		completions = smallDict.predictCompletions("", 0);
 		assertEquals(0, completions.size());
 		
+		
 		completions = smallDict.predictCompletions("",  4);
 		assertEquals(4, completions.size());
 		assertTrue(completions.contains("a"));
 		assertTrue(completions.contains("he"));
+		
 		boolean twoOfThree = completions.contains("hey") && completions.contains("hot") ||
 				             completions.contains("hey") && completions.contains("hem") ||
 				             completions.contains("hot") && completions.contains("hem");
@@ -157,7 +159,7 @@ public class AutoCompleteDictionaryTrieTester {
 		assertTrue(allIn);
 	
 		completions = smallDict.predictCompletions("x", 5);
-		assertEquals(0, completions.size());
+		assertEquals(0, completions.size());  
 	}
 	
 	
