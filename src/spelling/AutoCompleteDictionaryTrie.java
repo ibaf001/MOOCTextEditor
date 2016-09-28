@@ -139,20 +139,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
  		TrieNode current = root;
  		prefix = prefix.toLowerCase();
 		if (prefix.length() == 0 && numCompletions > 0) {
-			queue.add(current);
-			while (!queue.isEmpty()) {
-				current = queue.remove();
-				if (isWord(current.getText())) {
-					listCompletion.add(current.getText());
-					if (listCompletion.size() == numCompletions)
-						return listCompletion;
-				}
-				Set<Character> childrens = current.getValidNextCharacters();
-				for (Character ch : childrens) {
-					queue.add(current.getChild(ch));
-				}
-
-			}
+			return bfs(listCompletion,current,prefix,queue,numCompletions);
 		}
  		for (int i = 0; i < prefix.length(); i++) {
  			char c = prefix.charAt(i);
@@ -160,19 +147,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
  			if(current.getChild(c) != null ){
  				current = current.getChild(c);
  	 			if(current.getText().equals(prefix)){
- 	 				queue.add(current);
- 	 				while (!queue.isEmpty()) {
- 	 					current = queue.remove();
- 	 					if(isWord(current.getText())){
- 	 						listCompletion.add(current.getText());
- 	 						if(listCompletion.size() == numCompletions )return listCompletion;
- 	 					}
- 						Set<Character> childrens = current.getValidNextCharacters();
- 						for (Character ch : childrens) {
- 							queue.add(current.getChild(ch));
- 						} 
-
- 					}
+ 	 				return bfs(listCompletion,current,prefix,queue,numCompletions);
  	 			}
  			}else{
  				return listCompletion;
@@ -184,6 +159,25 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	}
 
 
+     
+    private List<String> bfs(List<String> listCompletion ,TrieNode current,String prefix,Queue<TrieNode> queue,int numCompletions){
+    	//List<String> listCompletion = new ArrayList<>();
+		queue.add(current);
+		while (!queue.isEmpty()) {
+			current = queue.remove();
+			if (isWord(current.getText())) {
+				listCompletion.add(current.getText());
+				if (listCompletion.size() == numCompletions)
+					return listCompletion;
+			}
+			Set<Character> childrens = current.getValidNextCharacters();
+			for (Character ch : childrens) {
+				queue.add(current.getChild(ch));
+			}
+
+		}
+    	return listCompletion;
+    }
  	// For debugging
  	public void printTree()
  	{
